@@ -2,18 +2,21 @@
 
 ## users テーブル
 
-| Column       | Type   | Options     |
-| ------------ | ------ | ----------- |
-| nickname     | string | null: false |
-| email        | string | null: false |
-| password     | string | null: false |
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| nickname           | string | null: false |
+| email              | string | null: false |
+| password           | string | null: false |
+| first_name         | string | null: false |
+| family_name        | string | null: false |
+| first_name_kana    | string | null: false |
+| family_name_kana   | string | null: false |
+| birth_day          | date   | null: false |
 
 ### Association
 
 - has_many :items
-- has_one :profile
-- has_one :delivery_destination
-- has_one :credit_card
+- has_many :purchases
 
 ## items テーブル
 
@@ -27,9 +30,7 @@
 | delivery_source_id     | integer    | null: false                    |
 | delivery_days_id       | integer    | null: false                    |
 | price                  | integer    | null: false                    |
-| user_id                | references | null: false, foreign_key: true |
-| buyer_id               | references | null: false, foreign_key: true |
-| purchased              | boolean    |                                |
+| user                   | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -39,53 +40,33 @@
 - belongs_to :delivery_fee_burden
 - belongs_to :delivery_source
 - belongs_to :delivery_day
+- has_one :purchase
 
-## profiles テーブル
+## purchases テーブル
 
-| Column             | Type       | Options                        |
-| ------------------ | ---------- | ------------------------------ |
-| first_name         | string     | null: false                    |
-| family_name        | string     | null: false                    |
-| first_name_kana    | string     | null: false                    |
-| family_name_kana   | string     | null: false                    |
-| birth_year_id      | integer    | null: false                    |
-| birth_month_id     | integer    | null: false                    |
-| birth_day_id       | integer    | null: false                    |
-| user_id            | references | null: false, foreign_key: true |
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| user    | references | null: false, foreign_key: true |
+| item    | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :birth_year
-- belongs_to :birth_month
-- belongs_to :birth_day
-
-## credit_cards テーブル
-
-| Column           | Type       | Options                        |
-| ---------------- | ---------- | ------------------------------ |
-| card_number      | integer    | null: false                    |
-| expiration_year  | integer    | null: false                    |
-| expiration_month | integer    | null: false                    |
-| security_code    | integer    | null: false                    |
-| user_id          | references | null: false, foreign_key: true |
-
-### Association
-
-- belongs_to :user
+- belongs_to :item
+- has_one :delivery_destination
 
 ## delivery_destinations テーブル
 
 | Column        | Type       | Options                        |
 | ------------- | ---------- | ------------------------------ |
-| post_code     | integer    | null: false                    |
+| post_code     | string     | null: false                    |
 | prefecture_id | integer    | null: false                    |
 | city          | string     | null: false                    |
 | building_name | string     |                                |
-| phone_number  | integer    | null: false                    |
-| user_id       | references | null: false, foreign_key: true |
+| phone_number  | string     | null: false                    |
+| purchase      | references | null: false, foreign_key: true |
 
 ### Association
 
-- belongs_to :user
+- belongs_to :purchase
 - belongs_to :prefecture
