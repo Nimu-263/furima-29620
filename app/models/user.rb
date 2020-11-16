@@ -7,7 +7,7 @@ class User < ApplicationRecord
   letters = /\A[ぁ-んァ-ン一-龥]+\z/
   kana = /\A[ァ-ン]+\z/
   letters_numbers = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
-  validates :nickname,          presence: true, length: { maximum: 40 }
+  validates :nickname,          presence: true
   validates :password,          presence: true, format: { with: letters_numbers, message: "Include both letters and numbers"}
   validates :first_name,        presence: true, format: { with: letters, message: "Full-width characters"}
   validates :family_name,       presence: true, format: { with: letters, message: "Full-width characters"}
