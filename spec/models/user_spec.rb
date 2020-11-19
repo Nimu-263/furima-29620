@@ -10,21 +10,6 @@ RSpec.describe User, type: :model do
       it "nicknameとemail、passwordとpassword_confirmation、first_name、family_name、first_name_kana、family_name_kana、birth_dayが存在すれば登録できる" do
         expect(@user).to be_valid
       end
-      it "passwordが6文字以上(英数字)であれば登録できる" do
-        @user.password = "A1b2C3d4"
-        @user.password_confirmation = "A1b2C3d4"
-        expect(@user).to be_valid
-      end
-      it "first_name、family_nameが全角(漢字・ひらがな・カタカナ)であれば登録できる" do
-        @user.first_name = "太郎"
-        @user.family_name = "ふりマ"
-        expect(@user).to be_valid
-      end
-      it "first_name_kana、family_name_kanaが全角(カタカナ)であれば登録できる" do
-        @user.first_name_kana = "タロウ"
-        @user.family_name_kana = "フリマ"
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録がうまくいかないとき' do
@@ -37,6 +22,11 @@ RSpec.describe User, type: :model do
         @user.email = ''
         @user.valid?
         expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it "emailに@マークが含まれていなければ登録できない" do
+        @user.email = 'testexample'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email is invalid")
       end
       it "重複したemailが存在する場合登録できない" do
         @user.save
@@ -62,7 +52,18 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
       end
-
+      it "passwordが数字のみでは登録できない" do
+        @user.password = '111111'
+        @user.password_confirmation = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+      end
+      it "passwordが全角では登録できない" do
+        @user.password = 'ああああああ'
+        @user.password_confirmation = 'ああああああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password Include both letters and numbers")
+      end
       it "passwordが存在してもpassword_confirmationが空では登録できない" do
         @user.password_confirmation = ''
         @user.valid?
