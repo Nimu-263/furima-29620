@@ -7,11 +7,20 @@ class User < ApplicationRecord
   letters = /\A[ぁ-んァ-ン一-龥]+\z/
   kana = /\A[ァ-ン]+\z/
   letters_numbers = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
-  validates :nickname,          presence: true
-  validates :password,          presence: true, format: { with: letters_numbers, message: "Include both letters and numbers"}
-  validates :first_name,        presence: true, format: { with: letters, message: "Full-width characters"}
-  validates :family_name,       presence: true, format: { with: letters, message: "Full-width characters"}
-  validates :first_name_kana,   presence: true, format: { with: kana, message: "Full-width katakana characters"}
-  validates :family_name_kana,  presence: true, format: { with: kana, message: "Full-width katakana characters"}
-  validates :birth_day,         presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :birth_day
+
+    validates :password, format: { with: letters_numbers, message: "Include both letters and numbers"}
+
+    with_options format: { with: letters, message: "Full-width characters"} do
+      validates :first_name
+      validates :family_name
+    end
+
+    with_options format: { with: kana, message: "Full-width katakana characters"} do
+      validates :first_name_kana
+      validates :family_name_kana
+    end
+  end
 end
