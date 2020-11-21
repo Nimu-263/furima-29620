@@ -3,9 +3,9 @@ class Item < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category
   belongs_to :condition
-  belongs_to :delivery_fee_burden
-  belongs_to :delivery_source
-  belongs_to :delivery_days
+  belongs_to :deliveryFeeBurden
+  belongs_to :deliverySource
+  belongs_to :deliveryDay
 
   with_options presence: true do
     validates :name
