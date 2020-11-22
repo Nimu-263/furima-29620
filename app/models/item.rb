@@ -14,13 +14,14 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :explanation
+
     validates :price, format: { with: numbers, message: "Half-width number"},
-              numericality: {
-                only_interger: true,
-                greater_than_or_equal_to: 300,
-                less_than_or_equal_to: 9999999,
-                message: 'Out of setting range' 
-              }
+                      numericality: {
+                        only_interger: true,
+                        greater_than_or_equal_to: 300,
+                        less_than_or_equal_to: 9999999,
+                        message: 'Out of setting range' 
+                      }
 
     with_options numericality: { other_than: 1, message: "Select" }  do
       validates :category_id
