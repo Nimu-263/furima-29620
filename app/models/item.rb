@@ -9,10 +9,12 @@ class Item < ApplicationRecord
   belongs_to :deliverySource
   belongs_to :deliveryDay
 
+  numbers = /\A[0-9]+\z/
   with_options presence: true do
+    validates :image
     validates :name
     validates :explanation
-    validates :price, 
+    validates :price, format: { with: numbers, message: "Half-width number"},
               numericality: {
                 only_interger: true,
                 greater_than_or_equal_to: 300,
@@ -20,7 +22,7 @@ class Item < ApplicationRecord
                 message: 'Out of setting range' 
               }
 
-    with_options numericality: { other_than: 1 }  do
+    with_options numericality: { other_than: 1, message: "Select" }  do
       validates :category_id
       validates :condition_id
       validates :delivery_fee_burden_id
