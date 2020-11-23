@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :items
+
   letters = /\A[ぁ-んァ-ン一-龥]+\z/
   kana = /\A[ァ-ン]+\z/
   letters_numbers = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
