@@ -18,6 +18,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
+
       it "nameが空だと登録できない" do
         @item.name = nil
         @item.valid?
@@ -28,31 +29,62 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
-      it "category_idが空だと登録できない" do
+
+      it "category_idが1だと登録できない" do
         @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category Select")
       end
+      it "category_idが空だと登録できない" do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+
       it "condition_idが１だと登録できない" do
         @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition Select")
       end
+      it "condition_idが空だと登録できない" do
+        @item.condition_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+
       it "delivery_fee_burden_idが１だと登録できない" do
         @item.delivery_fee_burden_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery fee burden Select")
       end
+      it "delivery_fee_burden_idが空だと登録できない" do
+        @item.delivery_fee_burden_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery fee burden can't be blank")
+      end
+
       it "delivery_source_idが１だと登録できない" do
         @item.delivery_source_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery source Select")
       end
+      it "delivery_source_idが空だと登録できない" do
+        @item.delivery_source_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery source can't be blank")
+      end
+
       it "delivery_days_idが１だと登録できない" do
         @item.delivery_days_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery days Select")
       end
+      it "delivery_days_idが空だと登録できない" do
+        @item.delivery_days_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Delivery days can't be blank")
+      end
+
       it "priceが空だと登録できない" do
         @item.price = nil
         @item.valid?
