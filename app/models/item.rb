@@ -28,7 +28,7 @@ class Item < ApplicationRecord
       validates :condition_id
       validates :delivery_fee_burden_id
       validates :delivery_source_id
-      validates :delivery_days_id
+      validates :delivery_day_id
     end
 
   end
