@@ -71,6 +71,12 @@ RSpec.describe UserPurchase, type: :model do
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include("Phone number Input only number")
       end
+
+      it "phone_numberが12桁以上だと保存できない" do
+        @user_purchase.phone_number = "080123456789"
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("Phone number Out of setting range")
+      end
     end
   end
 end
