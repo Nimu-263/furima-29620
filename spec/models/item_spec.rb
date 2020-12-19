@@ -74,15 +74,15 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Delivery source can't be blank")
       end
 
-      it "delivery_days_idが１だと登録できない" do
-        @item.delivery_days_id = 1
+      it "delivery_day_idが１だと登録できない" do
+        @item.delivery_day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery days Select")
+        expect(@item.errors.full_messages).to include("Delivery day Select")
       end
-      it "delivery_days_idが空だと登録できない" do
-        @item.delivery_days_id = nil
+      it "delivery_day_idが空だと登録できない" do
+        @item.delivery_day_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery days can't be blank")
+        expect(@item.errors.full_messages).to include("Delivery day can't be blank")
       end
 
       it "priceが空だと登録できない" do
