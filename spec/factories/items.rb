@@ -6,7 +6,7 @@ FactoryBot.define do
     condition_id           {2}
     delivery_fee_burden_id {2}
     delivery_source_id     {2}
-    delivery_days_id       {2}
+    delivery_day_id        {2}
     price                  {Faker::Number.between(from: 300, to: 9999999)}
 
     association :user
