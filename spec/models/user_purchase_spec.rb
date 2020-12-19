@@ -7,11 +7,11 @@ RSpec.describe UserPurchase, type: :model do
   
   describe '購入情報の保存' do
     context '購入がうまくいくとき' do
-      it "token、post_code、prefecture_id、city、address、building_name、phone_numberが存在すれば保存できる" do
+      it "token、post_code、prefecture_id、city、address、building_name、phone_number、user_id、item_idが存在すれば保存できる" do
         expect(@user_purchase).to be_valid
       end
 
-      it "building_name、phone_numberは空でも保存できる" do
+      it "building_nameは空でも保存できる" do
         @user_purchase.building_name = nil
         expect(@user_purchase).to be_valid
       end
@@ -76,6 +76,18 @@ RSpec.describe UserPurchase, type: :model do
         @user_purchase.phone_number = "080123456789"
         @user_purchase.valid?
         expect(@user_purchase.errors.full_messages).to include("Phone number Out of setting range")
+      end
+
+      it "user_idが空では保存できない" do
+        @user_purchase.user_id = nil
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空では保存できない" do
+        @user_purchase.item_id = nil
+        @user_purchase.valid?
+        expect(@user_purchase.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

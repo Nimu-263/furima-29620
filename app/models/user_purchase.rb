@@ -8,7 +8,9 @@ class UserPurchase
     validates :prefecture_id, numericality: { other_than: 1, message: "Select" }
     validates :city
     validates :address
-
+    validates :user_id
+    validates :item_id
+    
     with_options numericality: { only_integer: true, message: "Input only number" } do
       validates :phone_number, format: {with: /\A[0-9]{11}\z/, message: "Out of setting range"}
     end
